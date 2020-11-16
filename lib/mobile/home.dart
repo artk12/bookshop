@@ -1,9 +1,6 @@
-import 'package:book/components/bookcard.dart';
 import 'package:book/components/searchfieldwithoutlable.dart';
 import 'package:book/components/simpletext.dart';
-import 'package:book/components/trendBookCart.dart';
 import 'package:book/mobile/searchpage.dart';
-import 'package:book/modules/contents.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +12,11 @@ class MobileHome extends StatefulWidget {
 
 class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
   AnimationController _animationController;
-  // AnimationController _scaleAnimationController;
   bool keyPad = false;
   bool searchMode = false;
   FocusNode focusNode = new FocusNode();
+  double lastPixel = 0;
+  double bottomSheetPosition = 0;
   Animation<double> _fadeInFadeOutSearchPage;
   Animation<double> _fadeInFadeOutMainPage;
   Animation<double> _scaleMainPage;
@@ -63,6 +61,7 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
             : Center(
                 child: SimpleText(
                 text: 'خانه',
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               )),
         actions: [
@@ -98,14 +97,6 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                         ),
                       );
                       searchMode = true;
-                      // _scaleMainPage =
-                      //     Tween<double>(begin: 0.8, end: 0.0).animate(
-                      //   CurvedAnimation(
-                      //     parent: _animationController,
-                      //     curve: Curves.ease,
-                      //   ),
-                      // );
-                      // _animationController.reverse();
                     });
                     _animationController.reset();
                     _animationController.forward();
@@ -123,9 +114,6 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                       focusNode.unfocus();
                       await Future.delayed(Duration(milliseconds: 200));
                       setState(() {
-                        // _fadeInFadeOutSearchPage =
-                        //     Tween<double>(begin: 1.0, end: 0.0)
-                        //         .animate(_animationController);
                         _fadeInFadeOutMainPage =
                             Tween<double>(begin: 0.8, end: 1.0).animate(
                           CurvedAnimation(
@@ -133,7 +121,6 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                             curve: Curves.ease,
                           ),
                         );
-
                         _fadeInFadeOutMainPage =
                             Tween<double>(begin: 0.9, end: 1.0).animate(
                           CurvedAnimation(
@@ -141,7 +128,6 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                             curve: Curves.ease,
                           ),
                         );
-
                         searchMode = false;
                         _scaleMainPage =
                             Tween<double>(begin: 1.2, end: 1.0).animate(
@@ -150,8 +136,6 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                             curve: Curves.ease,
                           ),
                         );
-                        // keyPad = false;
-                        // _animationController.reverse();
                       });
                       _animationController.reset();
                       _animationController.forward();
@@ -171,10 +155,86 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                 child:
                     ScaleTransition(scale: _scaleSearch, child: SearchPage()),
               )
-            : ScaleTransition(
-                scale: _scaleMainPage,
-                child: FadeTransition(
-                    opacity: _fadeInFadeOutMainPage, child: HomePage()),
+            : NotificationListener(
+                onNotification: (ScrollNotification notification) {
+                  if (notification.metrics.axis.index == 1) {
+                    if (lastPixel != 0 &&
+                        lastPixel < notification.metrics.pixels) {
+                      //down
+                      if (bottomSheetPosition > -50) {
+                        setState(() {
+                          bottomSheetPosition -= 1;
+                        });
+                      }
+                    } else if (lastPixel != 0 &&
+                        lastPixel > notification.metrics.pixels) {
+                      //up
+                      if (bottomSheetPosition < 0) {
+                        setState(() {
+                          bottomSheetPosition += 1;
+                        });
+                      }
+                    }
+                    if (notification.metrics.maxScrollExtent >
+                            notification.metrics.pixels &&
+                        notification.metrics.pixels > 0) {
+                      lastPixel = notification.metrics.pixels;
+                    }
+                  }
+
+                  return true;
+                },
+                child: Stack(
+                  children: [
+                    ScaleTransition(
+                      scale: _scaleMainPage,
+                      child: FadeTransition(
+                          opacity: _fadeInFadeOutMainPage,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                bottom: bottomSheetPosition + 55),
+                            child: HomePage(),
+                          )),
+                    ),
+                    Positioned(
+                        bottom: bottomSheetPosition,
+                        right: 0,
+                        left: 0,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(
+                                Icons.home,
+                                color: Colors.blue,
+                                size: 30,
+                              ),
+                              Icon(
+                                Icons.favorite_border,
+                                size: 25,
+                              ),
+                              Icon(
+                                Icons.person,
+                                size: 25,
+                              ),
+                            ],
+                          ),
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border:
+                                  Border.all(color: Colors.black38, width: 1),
+                              boxShadow: [
+                                BoxShadow(color: Colors.black45, blurRadius: 5)
+                              ],
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(25),
+                                topRight: Radius.circular(25),
+                              )),
+                        ))
+                  ],
+                ),
               ),
       ),
     );

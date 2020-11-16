@@ -30,8 +30,8 @@ class BookCart extends StatelessWidget {
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: 200,
-            width: 150,
+            height: 150,
+            width: 100,
             child: Hero(
               tag:"$photo$index",
               child: ClipRRect(

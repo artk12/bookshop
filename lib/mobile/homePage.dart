@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
                   child: SimpleText(
                     text: 'پرفروشترین ها :',
                     fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    fontSize: 16,
                   )),
               SizedBox(
                 height: 10,
@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: Container(
-            height: 290,
+            height: 250,
             child: ListView(
               scrollDirection: Axis.horizontal,
               physics: BouncingScrollPhysics(),
@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
               child: SimpleText(
                 text: 'پربازدید ها :',
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
+                fontSize: 16,
               )),
         ),
         SliverList(
