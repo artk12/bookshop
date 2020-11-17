@@ -24,6 +24,7 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
   Animation<double> _scaleSearch;
   Animation<double> _searchFieldAnimation;
   PageController pageController = new PageController();
+  int page = 0;
 
   @override
   void initState() {
@@ -216,35 +217,65 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              IconButton(
-                                highlightColor: Colors.transparent,
-                                onPressed: (){
-                                  pageController.animateToPage(0, duration: Duration(milliseconds: 200), curve: Curves.ease);
-                                },
-                                icon: Icon(
-                                  Icons.home,
-                                  color: Colors.blue,
-                                  size: 30,
+                              AnimatedContainer(
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.ease,
+                                child: IconButton(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  onPressed: (){
+                                    pageController.animateToPage(0, duration: Duration(milliseconds: 200), curve: Curves.ease);
+
+                                    setState(() {
+                                      page = 0;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.home,
+                                    color: page == 0?Colors.blue:null,
+                                    size: 30,
+                                  ),
                                 ),
                               ),
-                              IconButton(
-                                highlightColor: Colors.transparent,
-                                onPressed: (){
-                                  pageController.animateToPage(1, duration: Duration(milliseconds: 200), curve: Curves.ease);
-                                },
-                                icon: Icon(
-                                  Icons.favorite_border,
-                                  size: 25,
+                              AnimatedContainer(
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.ease,
+                                child: IconButton(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  onPressed: (){
+                                    pageController.animateToPage(1, duration: Duration(milliseconds: 200), curve: Curves.ease);
+
+                                    setState(() {
+                                      page = 1;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    page == 1.0?Icons.favorite:Icons.favorite_border,
+                                    size: 25,
+                                    color: page == 1.0?Colors.red:null,
+                                  ),
                                 ),
                               ),
-                              IconButton(
-                                highlightColor: Colors.transparent,
-                                onPressed: (){
-                                  pageController.animateToPage(2, duration: Duration(milliseconds: 200), curve: Curves.ease);
-                                },
-                                icon: Icon(
-                                  Icons.person,
-                                  size: 25,
+                              AnimatedContainer(
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.ease,
+                                child: IconButton(
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  onPressed: (){
+                                    pageController.animateToPage(2, duration: Duration(milliseconds: 200), curve: Curves.ease);
+
+                                    setState(() {
+                                     page = 2;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.person,
+                                    size: 25,
+                                    color: page == 2?Colors.green:null,
+
+                                  ),
                                 ),
                               ),
                             ],
