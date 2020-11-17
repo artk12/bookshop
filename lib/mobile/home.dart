@@ -1,3 +1,4 @@
+import 'package:book/colors/colors.dart';
 import 'package:book/components/searchfieldwithoutlable.dart';
 import 'package:book/components/simpletext.dart';
 import 'package:book/mobile/searchpage.dart';
@@ -22,6 +23,7 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
   Animation<double> _scaleMainPage;
   Animation<double> _scaleSearch;
   Animation<double> _searchFieldAnimation;
+  PageController pageController = new PageController();
 
   @override
   void initState() {
@@ -186,16 +188,25 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                 },
                 child: Stack(
                   children: [
-                    ScaleTransition(
-                      scale: _scaleMainPage,
-                      child: FadeTransition(
-                          opacity: _fadeInFadeOutMainPage,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                bottom: bottomSheetPosition + 55),
-                            child: HomePage(),
-                          )),
+                    PageView(
+                      controller: pageController,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: [
+                        ScaleTransition(
+                          scale: _scaleMainPage,
+                          child: FadeTransition(
+                              opacity: _fadeInFadeOutMainPage,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: bottomSheetPosition + 55),
+                                child: HomePage(),
+                              )),
+                        ),
+                        Container(),
+                        Container(),
+                      ],
                     ),
+
                     Positioned(
                         bottom: bottomSheetPosition,
                         right: 0,
@@ -205,18 +216,36 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Icon(
-                                Icons.home,
-                                color: Colors.blue,
-                                size: 30,
+                              IconButton(
+                                highlightColor: Colors.transparent,
+                                onPressed: (){
+                                  pageController.animateToPage(0, duration: Duration(milliseconds: 200), curve: Curves.ease);
+                                },
+                                icon: Icon(
+                                  Icons.home,
+                                  color: Colors.blue,
+                                  size: 30,
+                                ),
                               ),
-                              Icon(
-                                Icons.favorite_border,
-                                size: 25,
+                              IconButton(
+                                highlightColor: Colors.transparent,
+                                onPressed: (){
+                                  pageController.animateToPage(1, duration: Duration(milliseconds: 200), curve: Curves.ease);
+                                },
+                                icon: Icon(
+                                  Icons.favorite_border,
+                                  size: 25,
+                                ),
                               ),
-                              Icon(
-                                Icons.person,
-                                size: 25,
+                              IconButton(
+                                highlightColor: Colors.transparent,
+                                onPressed: (){
+                                  pageController.animateToPage(2, duration: Duration(milliseconds: 200), curve: Curves.ease);
+                                },
+                                icon: Icon(
+                                  Icons.person,
+                                  size: 25,
+                                ),
                               ),
                             ],
                           ),
