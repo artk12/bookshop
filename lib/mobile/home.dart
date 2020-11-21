@@ -1,10 +1,10 @@
-import 'package:book/colors/colors.dart';
 import 'package:book/components/searchfieldwithoutlable.dart';
 import 'package:book/components/simpletext.dart';
 import 'package:book/mobile/searchpage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'archive.dart';
 import 'homePage.dart';
 
 class MobileHome extends StatefulWidget {
@@ -58,15 +58,17 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 247, 247, 247),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Color.fromARGB(255, 247, 247, 247),
-        leading: searchMode
+        title: searchMode
             ? Container()
-            : Center(
-                child: SimpleText(
-                text: 'خانه',
+            : SimpleText(
+                text: page == 0
+                    ? 'خانه'
+                    : page == 1 ? 'علاقه مندی ها' : 'پروفایل',
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-              )),
+              ),
         actions: [
           !searchMode
               ? Container()
@@ -203,11 +205,14 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                                 child: HomePage(),
                               )),
                         ),
-                        Container(),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              bottom: bottomSheetPosition + 55),
+                          child: Archive(),
+                        ),
                         Container(),
                       ],
                     ),
-
                     Positioned(
                         bottom: bottomSheetPosition,
                         right: 0,
@@ -223,16 +228,17 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                                 child: IconButton(
                                   highlightColor: Colors.transparent,
                                   splashColor: Colors.transparent,
-                                  onPressed: (){
-                                    pageController.animateToPage(0, duration: Duration(milliseconds: 200), curve: Curves.ease);
-
+                                  onPressed: () {
+                                    pageController.animateToPage(0,
+                                        duration: Duration(milliseconds: 200),
+                                        curve: Curves.ease);
                                     setState(() {
                                       page = 0;
                                     });
                                   },
                                   icon: Icon(
                                     Icons.home,
-                                    color: page == 0?Colors.blue:null,
+                                    color: page == 0 ? Colors.blue : null,
                                     size: 30,
                                   ),
                                 ),
@@ -243,17 +249,21 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                                 child: IconButton(
                                   highlightColor: Colors.transparent,
                                   splashColor: Colors.transparent,
-                                  onPressed: (){
-                                    pageController.animateToPage(1, duration: Duration(milliseconds: 200), curve: Curves.ease);
+                                  onPressed: () {
+                                    pageController.animateToPage(1,
+                                        duration: Duration(milliseconds: 200),
+                                        curve: Curves.ease);
 
                                     setState(() {
                                       page = 1;
                                     });
                                   },
                                   icon: Icon(
-                                    page == 1.0?Icons.favorite:Icons.favorite_border,
+                                    page == 1.0
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
                                     size: 25,
-                                    color: page == 1.0?Colors.red:null,
+                                    color: page == 1.0 ? Colors.red : null,
                                   ),
                                 ),
                               ),
@@ -263,18 +273,19 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                                 child: IconButton(
                                   highlightColor: Colors.transparent,
                                   splashColor: Colors.transparent,
-                                  onPressed: (){
-                                    pageController.animateToPage(2, duration: Duration(milliseconds: 200), curve: Curves.ease);
+                                  onPressed: () {
+                                    pageController.animateToPage(2,
+                                        duration: Duration(milliseconds: 200),
+                                        curve: Curves.ease);
 
                                     setState(() {
-                                     page = 2;
+                                      page = 2;
                                     });
                                   },
                                   icon: Icon(
                                     Icons.person,
                                     size: 25,
-                                    color: page == 2?Colors.green:null,
-
+                                    color: page == 2 ? Colors.green : null,
                                   ),
                                 ),
                               ),
