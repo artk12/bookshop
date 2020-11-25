@@ -37,10 +37,10 @@ class Settings extends StatelessWidget {
                           children: [
                             SimpleText(text:"نوتیفیکیشن"),
                             Switch(
-                              value: true,
+                              value: homeProvider.notificationCheck,
                               activeTrackColor: Colors.cyan[400],
                               inactiveThumbColor: Colors.cyan[800],
-                              onChanged: (v){},
+                              onChanged: homeProvider.onChangeNotification,
                             ),
                           ],
                         ),
@@ -52,10 +52,10 @@ class Settings extends StatelessWidget {
                           children: [
                             SimpleText(text:"حالت شب"),
                             Switch(
-                              value: true,
+                              value: homeProvider.darkTheme,
                               activeTrackColor: Colors.cyan[400],
                               inactiveThumbColor: Colors.cyan[800],
-                              onChanged: (v){},
+                              onChanged: homeProvider.onChangeTheme
                             ),
                           ],
                         ),

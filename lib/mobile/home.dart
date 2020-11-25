@@ -61,7 +61,7 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
     HomeProvider homeProvider = Provider.of<HomeProvider>(context);
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 247, 247, 247),
+      // backgroundColor: Color.fromARGB(255, 247, 247, 247),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         shadowColor: homeProvider.page == 2 ? Colors.transparent : null,
@@ -136,26 +136,25 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                   : !searchMode
                       ? IconButton(
                           onPressed: () {
-                            homeProvider.openCloseDrawer();
-                            // setState(() {
-                            //   _scaleMainPage =
-                            //       Tween<double>(begin: 1.0, end: 0.8).animate(
-                            //     CurvedAnimation(
-                            //       parent: _animationController,
-                            //       curve: Curves.ease,
-                            //     ),
-                            //   );
-                            //   _fadeInFadeOutSearchPage =
-                            //       Tween<double>(begin: 0.8, end: 1.0).animate(
-                            //     CurvedAnimation(
-                            //       parent: _animationController,
-                            //       curve: Curves.ease,
-                            //     ),
-                            //   );
-                            //   searchMode = true;
-                            // });
-                            // _animationController.reset();
-                            // _animationController.forward();
+                            setState(() {
+                              _scaleMainPage =
+                                  Tween<double>(begin: 1.0, end: 0.8).animate(
+                                CurvedAnimation(
+                                  parent: _animationController,
+                                  curve: Curves.ease,
+                                ),
+                              );
+                              _fadeInFadeOutSearchPage =
+                                  Tween<double>(begin: 0.8, end: 1.0).animate(
+                                CurvedAnimation(
+                                  parent: _animationController,
+                                  curve: Curves.ease,
+                                ),
+                              );
+                              searchMode = true;
+                            });
+                            _animationController.reset();
+                            _animationController.forward();
                           },
                           icon: Icon(
                             Icons.search,
@@ -242,31 +241,6 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                 },
                 child: Stack(
                   children: [
-                    // Positioned(
-                    //   left: 0,
-                    //   width: MediaQuery.of(context).size.width,
-                    //   height: MediaQuery.of(context).size.height,
-                    //   child: PageView(
-                    //     controller: pageController,
-                    //     // physics: NeverScrollableScrollPhysics(),
-                    //     children: [
-                    //       ScaleTransition(
-                    //         scale: _scaleMainPage,
-                    //         child: FadeTransition(
-                    //             opacity: _fadeInFadeOutMainPage,
-                    //             child: Padding(
-                    //               padding: EdgeInsets.only(
-                    //                   bottom: bottomSheetPosition + 55),
-                    //               child: HomePage(),
-                    //             )),
-                    //       ),
-                    //       Profile(
-                    //         pageController: pageController,
-                    //         homeProvider: homeProvider,
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                       Positioned(
                         left: 0,
                         width: MediaQuery.of(context).size.width,
