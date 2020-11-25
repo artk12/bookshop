@@ -20,20 +20,6 @@ class _State extends State<Profile> {
   @override
   Widget build(BuildContext context) {
 
-    return Stack(
-      children: [
-        Container(
-          color: Colors.red,
-        ),
-        AnimatedPositioned(
-          duration: Duration(milliseconds: 200),
-          bottom: 0,
-          left: 0,
-          right: 0,
-          top: 0,
-          child: UserDetail(homeProvider:widget.homeProvider,pageController: widget.pageController,),
-        )
-      ],
-    );
+    return UserDetail(homeProvider:widget.homeProvider,pageController: widget.pageController,);
   }
 }

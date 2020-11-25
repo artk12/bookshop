@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class HomeProvider extends ChangeNotifier{
 
-  bool openSetting = false;
+  bool openSetting = true;
   int page = 0;
 
   void updatePage(int i){

@@ -1,13 +1,12 @@
 import 'package:book/components/searchfieldwithoutlable.dart';
 import 'package:book/components/simpletext.dart';
-import 'package:book/mobile/allBookPage.dart';
 import 'package:book/mobile/profile.dart';
 import 'package:book/mobile/searchpage.dart';
 import 'package:book/providers/homeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'allBookPage.dart';
 import 'archive.dart';
 import 'homePage.dart';
 
@@ -21,7 +20,6 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
   bool searchMode = false;
   FocusNode focusNode = new FocusNode();
   double lastPixel = 0;
-  bool openSetting = false;
   double bottomSheetPosition = 0;
   Animation<double> _fadeInFadeOutSearchPage;
   Animation<double> _fadeInFadeOutMainPage;
@@ -138,25 +136,26 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                   : !searchMode
                       ? IconButton(
                           onPressed: () {
-                            setState(() {
-                              _scaleMainPage =
-                                  Tween<double>(begin: 1.0, end: 0.8).animate(
-                                CurvedAnimation(
-                                  parent: _animationController,
-                                  curve: Curves.ease,
-                                ),
-                              );
-                              _fadeInFadeOutSearchPage =
-                                  Tween<double>(begin: 0.8, end: 1.0).animate(
-                                CurvedAnimation(
-                                  parent: _animationController,
-                                  curve: Curves.ease,
-                                ),
-                              );
-                              searchMode = true;
-                            });
-                            _animationController.reset();
-                            _animationController.forward();
+                            homeProvider.openCloseDrawer();
+                            // setState(() {
+                            //   _scaleMainPage =
+                            //       Tween<double>(begin: 1.0, end: 0.8).animate(
+                            //     CurvedAnimation(
+                            //       parent: _animationController,
+                            //       curve: Curves.ease,
+                            //     ),
+                            //   );
+                            //   _fadeInFadeOutSearchPage =
+                            //       Tween<double>(begin: 0.8, end: 1.0).animate(
+                            //     CurvedAnimation(
+                            //       parent: _animationController,
+                            //       curve: Curves.ease,
+                            //     ),
+                            //   );
+                            //   searchMode = true;
+                            // });
+                            // _animationController.reset();
+                            // _animationController.forward();
                           },
                           icon: Icon(
                             Icons.search,
@@ -243,34 +242,64 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                 },
                 child: Stack(
                   children: [
-                    PageView(
-                      controller: pageController,
-                      physics: NeverScrollableScrollPhysics(),
-                      children: [
-                        ScaleTransition(
-                          scale: _scaleMainPage,
-                          child: FadeTransition(
-                              opacity: _fadeInFadeOutMainPage,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: bottomSheetPosition + 55),
-                                child: HomePage(),
-                              )),
+                    // Positioned(
+                    //   left: 0,
+                    //   width: MediaQuery.of(context).size.width,
+                    //   height: MediaQuery.of(context).size.height,
+                    //   child: PageView(
+                    //     controller: pageController,
+                    //     // physics: NeverScrollableScrollPhysics(),
+                    //     children: [
+                    //       ScaleTransition(
+                    //         scale: _scaleMainPage,
+                    //         child: FadeTransition(
+                    //             opacity: _fadeInFadeOutMainPage,
+                    //             child: Padding(
+                    //               padding: EdgeInsets.only(
+                    //                   bottom: bottomSheetPosition + 55),
+                    //               child: HomePage(),
+                    //             )),
+                    //       ),
+                    //       Profile(
+                    //         pageController: pageController,
+                    //         homeProvider: homeProvider,
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                      Positioned(
+                        left: 0,
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        child: PageView(
+                          controller: pageController,
+                          physics: NeverScrollableScrollPhysics(),
+                          children: [
+                            ScaleTransition(
+                              scale: _scaleMainPage,
+                              child: FadeTransition(
+                                  opacity: _fadeInFadeOutMainPage,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        bottom: bottomSheetPosition + 55),
+                                    child: HomePage(),
+                                  )),
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(bottom: bottomSheetPosition + 55),
+                              child: Archive(),
+                            ),
+                            Profile(
+                              pageController: pageController,
+                              homeProvider: homeProvider,
+                            ),
+                            AllBookPage(
+                              pageController: pageController,
+                            ),
+                          ],
                         ),
-                        Padding(
-                          padding:
-                              EdgeInsets.only(bottom: bottomSheetPosition + 55),
-                          child: Archive(),
-                        ),
-                        Profile(
-                          pageController: pageController,
-                          homeProvider: homeProvider,
-                        ),
-                        AllBookPage(
-                          pageController: pageController,
-                        ),
-                      ],
-                    ),
+                      ),
                     AnimatedPositioned(
                       duration: Duration(milliseconds: 10),
                       bottom: bottomSheetPosition,
