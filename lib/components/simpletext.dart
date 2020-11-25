@@ -7,7 +7,15 @@ class SimpleText extends StatelessWidget {
   final Function onTap;
   final int fontSize;
   final FontWeight fontWeight;
-  SimpleText({this.text, this.onTap, this.fontSize,this.fontWeight = FontWeight.normal});
+  final double height;
+  final Color color;
+  SimpleText(
+      {this.height = 1.2,
+      this.text,
+        this.color = Colors.black,
+      this.onTap,
+      this.fontSize,
+      this.fontWeight = FontWeight.normal});
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +24,18 @@ class SimpleText extends StatelessWidget {
       child: Text(
         "$text",
         style: TextStyle(
-          fontWeight: fontWeight,
-          fontFamily: "iranian_sans",
-          color: MyColor.textColor, height: 1.5,
-          fontSize: fontSize != null ? fontSize + 0.0 : null,
-          shadows: [
-            // Shadow(
-            //   offset: Offset(0.0, 0.0),
-            //   blurRadius: 20.0,
-            //   color: Colors.black38,
-            // ),
-          ]
-        ),
+            color: color,
+            fontWeight: fontWeight,
+            fontFamily: "iranian_sans",
+            height: height,
+            fontSize: fontSize != null ? fontSize + 0.0 : null,
+            shadows: [
+              // Shadow(
+              //   offset: Offset(0.0, 0.0),
+              //   blurRadius: 20.0,
+              //   color: Colors.black38,
+              // ),
+            ]),
       ),
     );
   }

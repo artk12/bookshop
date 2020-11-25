@@ -23,10 +23,22 @@ class Rating {
       allowHalfRating: true,
       itemCount: 5,
       itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-      itemBuilder: (context, _) => Icon(
-        Icons.star,
-        color: Colors.amber,
-        size: 5,
+      ratingWidget: RatingWidget(
+        half:  Icon(
+          Icons.star,
+          color: Colors.amber,
+          size: 5,
+        ),
+        empty:  Icon(
+          Icons.star,
+          color: Colors.amber,
+          size: 5,
+        ),
+        full:  Icon(
+          Icons.star,
+          color: Colors.amber,
+          size: 5,
+        )
       ),
       onRatingUpdate: onChange,
     );

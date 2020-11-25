@@ -1,7 +1,10 @@
 import 'package:book/colors/colors.dart';
 import 'package:book/mobile/bookDetail.dart';
 import 'package:book/mobile/home.dart';
+import 'package:book/mobile/settings.dart';
+import 'package:book/providers/homeProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,7 +36,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MobileHome(),
+      home: ChangeNotifierProvider.value(value:HomeProvider(),child: Settings()),
     );
   }
 }
