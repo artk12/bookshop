@@ -1,7 +1,8 @@
-import 'package:book/components/searchfieldwithoutlable.dart';
-import 'package:book/components/simpletext.dart';
+
+import 'package:book/mobile/homeAppBar.dart';
 import 'package:book/mobile/profile.dart';
 import 'package:book/mobile/searchpage.dart';
+import 'package:book/providers/dragController.dart';
 import 'package:book/providers/homeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,8 @@ import 'archive.dart';
 import 'homePage.dart';
 
 class MobileHome extends StatefulWidget {
+  final DragController drag;
+  MobileHome({this.drag});
   createState() => _MobileHomeState();
 }
 
@@ -60,148 +63,64 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     HomeProvider homeProvider = Provider.of<HomeProvider>(context);
 
+    Function searchIconPress = (){
+      setState(() {
+        _scaleMainPage =
+            Tween<double>(begin: 1.0, end: 0.8).animate(
+              CurvedAnimation(
+                parent: _animationController,
+                curve: Curves.ease,
+              ),
+            );
+        _fadeInFadeOutSearchPage =
+            Tween<double>(begin: 0.8, end: 1.0).animate(
+              CurvedAnimation(
+                parent: _animationController,
+                curve: Curves.ease,
+              ),
+            );
+        searchMode = true;
+      });
+      _animationController.reset();
+      _animationController.forward();
+    };
+
+    Function backIconInSearchMode = () async {
+      focusNode.unfocus();
+      await Future.delayed(Duration(milliseconds: 200));
+      setState(() {
+        _fadeInFadeOutMainPage =
+            Tween<double>(begin: 0.9, end: 1.0).animate(
+              CurvedAnimation(
+                parent: _animationController,
+                curve: Curves.ease,
+              ),
+            );
+        searchMode = false;
+        _scaleMainPage =
+            Tween<double>(begin: 1.2, end: 1.0).animate(
+              CurvedAnimation(
+                parent: _animationController,
+                curve: Curves.ease,
+              ),
+            );
+      });
+      _animationController.reset();
+      _animationController.forward();
+    };
+
     return Scaffold(
       // backgroundColor: Color.fromARGB(255, 247, 247, 247),
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        shadowColor: homeProvider.page == 2 ? Colors.transparent : null,
-        backgroundColor: homeProvider.page == 2
-            ? Colors.cyan
-            : Color.fromARGB(255, 247, 247, 247),
-        title: searchMode
-            ? Container()
-            : homeProvider.page == 3
-                ? GestureDetector(
-                    onTap: () {
-                      pageController.animateToPage(2,
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.easeInOut);
-                      homeProvider.updatePage(2);
-                    },
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.arrow_back_ios,
-                          size: 14,
-                          color: Color.fromARGB(255, 71, 71, 71),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        SimpleText(
-                          text: 'پروفایل',
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 71, 71, 71),
-                        )
-                      ],
-                    ),
-                  )
-                : SimpleText(
-                    text: homeProvider.page == 0
-                        ? 'خانه'
-                        : homeProvider.page == 1 ? 'علاقه مندی ها' : '',
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: homeProvider.page == 2
-                        ? Colors.white
-                        : Color.fromARGB(255, 71, 71, 71),
-                  ),
-        actions: [
-          !searchMode
-              ? Container()
-              : ScaleTransition(
-                  scale: _searchFieldAnimation,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 5, bottom: 5),
-                    child: SearchFieldWithOutLabel(
-                      focusNode: focusNode,
-                      iconData: Icons.search,
-                      onChange: (t) {},
-                    ),
-                  ),
-                ),
-          homeProvider.page == 3
-              ? Container()
-              : homeProvider.page == 2
-                  ? IconButton(
-                      onPressed: () {
-                        homeProvider.openCloseDrawer();
-                      },
-                      icon: Icon(
-                        Icons.settings,
-                        color: Colors.white,
-                      ),
-                    )
-                  : !searchMode
-                      ? IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _scaleMainPage =
-                                  Tween<double>(begin: 1.0, end: 0.8).animate(
-                                CurvedAnimation(
-                                  parent: _animationController,
-                                  curve: Curves.ease,
-                                ),
-                              );
-                              _fadeInFadeOutSearchPage =
-                                  Tween<double>(begin: 0.8, end: 1.0).animate(
-                                CurvedAnimation(
-                                  parent: _animationController,
-                                  curve: Curves.ease,
-                                ),
-                              );
-                              searchMode = true;
-                            });
-                            _animationController.reset();
-                            _animationController.forward();
-                          },
-                          icon: Icon(
-                            Icons.search,
-                            color: Color.fromARGB(255, 71, 71, 71),
-                          ),
-                        )
-                      : RotationTransition(
-                          turns: Tween(begin: 0.0, end: 2.0)
-                              .animate(_animationController),
-                          child: IconButton(
-                            onPressed: () async {
-                              focusNode.unfocus();
-                              await Future.delayed(Duration(milliseconds: 200));
-                              setState(() {
-                                // _fadeInFadeOutMainPage =
-                                //     Tween<double>(begin: 0.8, end: 1.0).animate(
-                                //   CurvedAnimation(
-                                //     parent: _animationController,
-                                //     curve: Curves.ease,
-                                //   ),
-                                // );
-                                _fadeInFadeOutMainPage =
-                                    Tween<double>(begin: 0.9, end: 1.0).animate(
-                                  CurvedAnimation(
-                                    parent: _animationController,
-                                    curve: Curves.ease,
-                                  ),
-                                );
-                                searchMode = false;
-                                _scaleMainPage =
-                                    Tween<double>(begin: 1.2, end: 1.0).animate(
-                                  CurvedAnimation(
-                                    parent: _animationController,
-                                    curve: Curves.ease,
-                                  ),
-                                );
-                              });
-                              _animationController.reset();
-                              _animationController.forward();
-                            },
-                            icon: Icon(
-                              Icons.arrow_forward,
-                              color: Color.fromARGB(255, 71, 71, 71),
-                            ),
-                          ),
-                        )
-        ],
+      appBar: HomeAppBar(
+        drag: widget.drag,
+        homeProvider: homeProvider,
+        pageController: pageController,
+        focusNode: focusNode,
+        animationController: _animationController,
+        backIconInSearchMode: backIconInSearchMode,
+        searchFieldAnimation: _searchFieldAnimation,
+        searchIconPress: searchIconPress,
+        searchMode: searchMode,
       ),
       body: SafeArea(
         child: searchMode

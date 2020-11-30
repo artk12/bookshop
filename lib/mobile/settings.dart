@@ -1,4 +1,5 @@
 import 'package:book/components/simpletext.dart';
+import 'package:book/providers/dragController.dart';
 import 'package:book/providers/homeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,113 +11,186 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeProvider homeProvider = Provider.of<HomeProvider>(context);
-    double left = 0;
-    if (homeProvider.openSetting) {
-      left = MediaQuery.of(context).size.width / 2.2;
+    DragController drag = Provider.of<DragController>(context);
+
+    if (drag.maxDrag == null) {
+      drag.maxDrag = MediaQuery.of(context).size.width * (2 / 3);
     }
 
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  color: Color.fromARGB(255, 235, 235, 235),
-                  padding: EdgeInsets.only(top:30),
-                  width: MediaQuery.of(context).size.width / 2.2,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right:8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SimpleText(text:"نوتیفیکیشن"),
-                            Switch(
-                              value: homeProvider.notificationCheck,
-                              activeTrackColor: Colors.cyan[400],
-                              inactiveThumbColor: Colors.cyan[800],
-                              onChanged: homeProvider.onChangeNotification,
-                            ),
-                          ],
+      body: GestureDetector(
+        onVerticalDragUpdate: (_) {},
+        onHorizontalDragUpdate: (DragUpdateDetails dragUpdateDetail) async {
+          // print(dragUpdateDetail.globalPosition.dx);
+
+          if (homeProvider.page == 2) {
+            if (drag.lastDx < dragUpdateDetail.globalPosition.dx) {
+              //open
+              if (drag.left + 1 >= drag.maxDrag) {
+                // homeProvider.openCloseDrawerManual(true);
+              }
+              if (drag.lastDx > drag.left && drag.left < drag.maxDrag) {
+                drag.left += 2;
+                drag.updateLastPos(drag.lastPos += 2);
+              }
+            } else {
+              if (drag.left > 0) {
+                if (drag.left - 1 <= 0) {
+                  // homeProvider.openCloseDrawerManual(false);
+                }
+                drag.left -= 2;
+                drag.updateLastPos(drag.lastPos -= 2);
+              }
+            }
+            drag.updateLastDX(dragUpdateDetail.globalPosition.dx);
+          }
+        },
+        onHorizontalDragEnd: (DragEndDetails dragUpdateDetail)async{
+          if(drag.left != 0 && drag.left < drag.maxDrag / 2){
+            drag.updateLastPos(0.0);
+          }else if (drag.left >= drag.maxDrag / 2 ){
+            drag.updateLastPos(drag.maxDrag);
+          }
+        },
+        child: SafeArea(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                AnimatedPositioned(
+                  duration: Duration(milliseconds: 100),
+                  left: drag.left - drag.maxDrag,
+                  height: MediaQuery.of(context).size.height,
+                  child: Container(
+                    color: Color.fromARGB(255, 235, 235, 235),
+                    width: drag.maxDrag,
+                    child: Column(
+                      children: [
+                        Container(
+                          height: kToolbarHeight,
+                          child: Center(
+                            child: SimpleText(text: "تنظیمات"),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right:8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SimpleText(text:"حالت شب"),
-                            Switch(
-                              value: homeProvider.darkTheme,
-                              activeTrackColor: Colors.cyan[400],
-                              inactiveThumbColor: Colors.cyan[800],
-                              onChanged: homeProvider.onChangeTheme
-                            ),
-                          ],
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2,
+                          height: 1,
+                          color: Colors.black26,
                         ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width / 2,
-                        height: 1,
-                        color: Colors.black26,
-                      ),
-                      SizedBox(height: 20,),
-                      Padding(
-                        padding: const EdgeInsets.only(right:8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SimpleText(text:"حفظ حریم"),
-                            Container(),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.notifications_none,
+                                    size: 15,
+                                  ),
+                                  SimpleText(
+                                    text: " اعلان",
+                                    fontSize: 16,
+                                  ),
+                                ],
+                              ),
+                              Switch(
+                                value: homeProvider.notificationCheck,
+                                activeTrackColor: Colors.cyan[400],
+                                inactiveThumbColor: Colors.cyan[800],
+                                onChanged: homeProvider.onChangeNotification,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 20,),
-                      Padding(
-                        padding: const EdgeInsets.only(right:8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SimpleText(text:"ارتباط با ما"),
-                            Container(),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.brightness_3,
+                                    size: 15,
+                                  ),
+                                  SimpleText(
+                                    text: " حالت شب",
+                                    fontSize: 16,
+                                  ),
+                                ],
+                              ),
+                              Switch(
+                                  value: homeProvider.darkTheme,
+                                  activeTrackColor: Colors.cyan[400],
+                                  inactiveThumbColor: Colors.cyan[800],
+                                  onChanged: homeProvider.onChangeTheme),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2,
+                          height: 1,
+                          color: Colors.black26,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SimpleText(text: "حفظ حریم"),
+                              Container(),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SimpleText(text: "ارتباط با ما"),
+                              Container(),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              // Container(
-              //   child: Stack(
-              //     children: [
-              //       Align(
-              //         alignment: Alignment.centerLeft,
-              //         child: Container(
-              //           width: MediaQuery.of(context).size.width / 2.2,
-              //         ),
-              //       ),
-              //       Text("hi")
-              //     ],
-              //   ),
-              //   // width: MediaQuery.of(context).size.width / 2.2,
-              // ),
-              AnimatedPositioned(
-                duration: Duration(milliseconds: 200),
-                top: 0,
-                left: left,
-                right: 0,
-                bottom: 0,
-                child: ChangeNotifierProvider.value(
-                  value: homeProvider,
-                  child: MobileHome(),
+                // Container(
+                //   child: Stack(
+                //     children: [
+                //       Align(
+                //         alignment: Alignment.centerLeft,
+                //         child: Container(
+                //           width: MediaQuery.of(context).size.width / 2.2,
+                //         ),
+                //       ),
+                //       Text("hi")
+                //     ],
+                //   ),
+                //   // width: MediaQuery.of(context).size.width / 2.2,
+                // ),
+                AnimatedPositioned(
+                  duration: Duration(milliseconds: 100),
+                  top: 0,
+                  left: drag.left,
+                  right: 0,
+                  bottom: 0,
+                  child: ChangeNotifierProvider.value(
+                    value: homeProvider,
+                    child: MobileHome(drag: drag,),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
