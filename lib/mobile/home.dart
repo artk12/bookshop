@@ -1,4 +1,5 @@
 
+import 'package:book/mobile/bottomSheet.dart';
 import 'package:book/mobile/homeAppBar.dart';
 import 'package:book/mobile/profile.dart';
 import 'package:book/mobile/searchpage.dart';
@@ -110,7 +111,6 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
     };
 
     return Scaffold(
-      // backgroundColor: Color.fromARGB(255, 247, 247, 247),
       appBar: HomeAppBar(
         drag: widget.drag,
         homeProvider: homeProvider,
@@ -155,7 +155,6 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                       lastPixel = notification.metrics.pixels;
                     }
                   }
-
                   return true;
                 },
                 child: Stack(
@@ -198,104 +197,7 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                       bottom: bottomSheetPosition,
                       // right: 0,
                       left: 0,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8),
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            AnimatedContainer(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.ease,
-                              child: IconButton(
-                                highlightColor: Colors.transparent,
-                                splashColor: Colors.transparent,
-                                onPressed: () {
-                                  pageController.animateToPage(0,
-                                      duration: Duration(milliseconds: 200),
-                                      curve: Curves.ease);
-                                  homeProvider.updatePage(0);
-                                },
-                                icon: Icon(
-                                  Icons.home,
-                                  color: homeProvider.page == 0
-                                      ? Colors.blue
-                                      : null,
-                                  size: 30,
-                                ),
-                              ),
-                            ),
-                            AnimatedContainer(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.ease,
-                              child: IconButton(
-                                highlightColor: Colors.transparent,
-                                splashColor: Colors.transparent,
-                                onPressed: () {
-                                  pageController.animateToPage(1,
-                                      duration: Duration(milliseconds: 200),
-                                      curve: Curves.ease);
-                                  homeProvider.updatePage(1);
-                                },
-                                icon: Icon(
-                                  homeProvider.page == 1.0
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  size: 25,
-                                  color: homeProvider.page == 1.0
-                                      ? Colors.red
-                                      : null,
-                                ),
-                              ),
-                            ),
-                            AnimatedContainer(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.ease,
-                              child: IconButton(
-                                highlightColor: Colors.transparent,
-                                splashColor: Colors.transparent,
-                                onPressed: () {
-                                  pageController.animateToPage(2,
-                                      duration: Duration(milliseconds: 200),
-                                      curve: Curves.ease);
-                                  setState(() {
-                                    _scaleMainPage =
-                                        Tween<double>(begin: 1.0, end: 1.0)
-                                            .animate(
-                                      CurvedAnimation(
-                                        parent: _animationController,
-                                        curve: Curves.ease,
-                                      ),
-                                    );
-                                  });
-                                  homeProvider.updatePage(2);
-                                  _animationController.reset();
-                                  _animationController.forward();
-                                },
-                                icon: Icon(
-                                  Icons.person,
-                                  size: 25,
-                                  color: homeProvider.page == 2
-                                      ? Colors.green
-                                      : null,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.black38, width: 1),
-                          boxShadow: [
-                            BoxShadow(color: Colors.black45, blurRadius: 5)
-                          ],
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            topRight: Radius.circular(25),
-                          ),
-                        ),
-                      ),
+                      child: MyBottomSheet(pageController: pageController,homeProvider: homeProvider,)
                     )
                   ],
                 ),
