@@ -173,13 +173,13 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                                   opacity: _fadeInFadeOutMainPage,
                                   child: Padding(
                                     padding: EdgeInsets.only(
-                                        bottom: bottomSheetPosition + 55),
+                                        bottom: bottomSheetPosition+135),
                                     child: HomePage(),
                                   )),
                             ),
                             Padding(
                               padding:
-                                  EdgeInsets.only(bottom: bottomSheetPosition + 55),
+                                  EdgeInsets.only(bottom: bottomSheetPosition+135),
                               child: Archive(),
                             ),
                             Profile(
@@ -195,7 +195,6 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                     AnimatedPositioned(
                       duration: Duration(milliseconds: 10),
                       bottom: bottomSheetPosition,
-                      // right: 0,
                       left: 0,
                       child: MyBottomSheet(pageController: pageController,homeProvider: homeProvider,)
                     )
