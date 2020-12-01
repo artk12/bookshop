@@ -1,5 +1,4 @@
 import 'package:book/components/bookcard.dart';
-import 'package:book/components/simpletext.dart';
 import 'package:book/modules/contents.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -2,7 +2,6 @@ import 'package:book/mobile/userdetail.dart';
 import 'package:book/providers/homeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
   // final bool openSetting;

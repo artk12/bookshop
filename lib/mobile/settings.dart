@@ -1,4 +1,3 @@
-import 'package:book/components/simpletext.dart';
 import 'package:book/providers/dragController.dart';
 import 'package:book/providers/homeProvider.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,6 +11,8 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     HomeProvider homeProvider = Provider.of<HomeProvider>(context);
     DragController drag = Provider.of<DragController>(context);
+    ThemeData myTheme = Theme.of(context);
+
 
     if (drag.maxDrag == null) {
       drag.maxDrag = MediaQuery.of(context).size.width * (2 / 3);
@@ -70,7 +71,7 @@ class Settings extends StatelessWidget {
                         Container(
                           height: kToolbarHeight,
                           child: Center(
-                            child: SimpleText(text: "تنظیمات"),
+                            child: Text("تنظیمات",style: myTheme.textTheme.subtitle1,),
                           ),
                         ),
                         Container(
@@ -89,9 +90,8 @@ class Settings extends StatelessWidget {
                                     Icons.notifications_none,
                                     size: 15,
                                   ),
-                                  SimpleText(
-                                    text: " اعلان",
-                                    fontSize: 16,
+                                  Text(" اعلان"
+                                      ,style: myTheme.textTheme.subtitle1,
                                   ),
                                 ],
                               ),
@@ -115,9 +115,9 @@ class Settings extends StatelessWidget {
                                     Icons.brightness_3,
                                     size: 15,
                                   ),
-                                  SimpleText(
-                                    text: " حالت شب",
-                                    fontSize: 16,
+                                  Text(
+                                    " حالت شب",
+                                    style: myTheme.textTheme.subtitle1,
                                   ),
                                 ],
                               ),
@@ -142,7 +142,7 @@ class Settings extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SimpleText(text: "حفظ حریم"),
+                              Text("حفظ حریم",style: myTheme.textTheme.subtitle1,),
                               Container(),
                             ],
                           ),
@@ -155,7 +155,7 @@ class Settings extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SimpleText(text: "ارتباط با ما"),
+                              Text("ارتباط با ما",style: myTheme.textTheme.subtitle2,),
                               Container(),
                             ],
                           ),
@@ -164,20 +164,6 @@ class Settings extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Container(
-                //   child: Stack(
-                //     children: [
-                //       Align(
-                //         alignment: Alignment.centerLeft,
-                //         child: Container(
-                //           width: MediaQuery.of(context).size.width / 2.2,
-                //         ),
-                //       ),
-                //       Text("hi")
-                //     ],
-                //   ),
-                //   // width: MediaQuery.of(context).size.width / 2.2,
-                // ),
                 AnimatedPositioned(
                   duration: Duration(milliseconds: 100),
                   top: 0,

@@ -1,4 +1,3 @@
-import 'package:book/components/simpletext.dart';
 import 'package:book/modules/contents.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +32,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    // if(rightPic == null){
+    ThemeData myTheme = Theme.of(context);
     height = MediaQuery.of(context).size.height + updateDrag;
     rightPic = ((MediaQuery.of(context).size.width / 2) - (180 / 2));
     topPic = (MediaQuery.of(context).size.height -
@@ -105,12 +104,11 @@ class _BookDetailPageState extends State<BookDetailPage> {
                 alignment: Alignment.topLeft,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10)
-                  ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10)),
                   margin: EdgeInsets.all(10),
                   child: IconButton(
-                    onPressed: (){
+                    onPressed: () {
                       Navigator.of(context).pop();
                     },
                     icon: Icon(
@@ -168,16 +166,16 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       SizedBox(
                         height: 30,
                       ),
-                      SimpleText(
-                        text: widget.name,
+                      Text(
+                        widget.name,
+                        style: myTheme.textTheme.subtitle1,
                       ),
                       SizedBox(
                         height: 15,
                       ),
-                      SimpleText(
-                        text: widget.bookName,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                      Text(
+                        widget.bookName,
+                        style: myTheme.textTheme.headline1,
                       ),
                       SizedBox(
                         height: 15,
@@ -220,13 +218,15 @@ class _BookDetailPageState extends State<BookDetailPage> {
                             ),
                             tabs: [
                               Tab(
-                                child: SimpleText(
-                                  text: 'اطلاعات کتاب',
+                                child: Text(
+                                  'اطلاعات کتاب',
+                                  style: myTheme.textTheme.subtitle1,
                                 ),
                               ),
                               Tab(
-                                child: SimpleText(
-                                  text: 'صاحب کتاب',
+                                child: Text(
+                                  'صاحب کتاب',
+                                  style: myTheme.textTheme.subtitle1,
                                 ),
                               ),
                             ],
@@ -255,16 +255,16 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SimpleText(
-                                              text: 'انگلیسی',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                            Text('انگلیسی',
+                                                style: myTheme
+                                                    .textTheme.headline2),
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            SimpleText(
-                                              text: 'زبان',
+                                            Text(
+                                              'زبان',
+                                              style:
+                                                  myTheme.textTheme.subtitle1,
                                             ),
                                           ],
                                         ),
@@ -277,17 +277,15 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SimpleText(
-                                              text: 'سخت',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                            Text('سخت',
+                                                style: myTheme
+                                                    .textTheme.headline2),
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            SimpleText(
-                                              text: 'جلد',
-                                            ),
+                                            Text('جلد',
+                                                style: myTheme
+                                                    .textTheme.subtitle1),
                                           ],
                                         ),
                                       ),
@@ -299,17 +297,15 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SimpleText(
-                                              text: '455',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                            Text('455',
+                                                style: myTheme
+                                                    .textTheme.headline2),
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            SimpleText(
-                                              text: 'صفحات',
-                                            ),
+                                            Text('صفحات',
+                                                style: myTheme
+                                                    .textTheme.subtitle1),
                                           ],
                                         ),
                                       ),
@@ -321,17 +317,15 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SimpleText(
-                                              text: '4.5',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                            Text('4.5',
+                                                style: myTheme
+                                                    .textTheme.headline2),
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            SimpleText(
-                                              text: 'امتیاز',
-                                            ),
+                                            Text('امتیاز',
+                                                style: myTheme
+                                                    .textTheme.subtitle1),
                                           ],
                                         ),
                                       ),
@@ -346,28 +340,6 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                   ),
                                   child: Row(
                                     children: [
-                                      // Expanded(
-                                      //   flex: 1,
-                                      //   child: Column(
-                                      //     crossAxisAlignment:
-                                      //         CrossAxisAlignment.center,
-                                      //     mainAxisAlignment:
-                                      //         MainAxisAlignment.center,
-                                      //     children: [
-                                      //       SimpleText(
-                                      //         text: 'فلسفه',
-                                      //         fontSize: 16,
-                                      //         fontWeight: FontWeight.bold,
-                                      //       ),
-                                      //       SizedBox(
-                                      //         height: 10,
-                                      //       ),
-                                      //       SimpleText(
-                                      //         text: 'موضوع',
-                                      //       ),
-                                      //     ],
-                                      //   ),
-                                      // ),
                                       Expanded(
                                         flex: 1,
                                         child: Column(
@@ -376,17 +348,17 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SimpleText(
-                                              text: 'نشر نی',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
+                                            Text(
+                                              'نشر نی',
+                                              style:
+                                                  myTheme.textTheme.headline2,
                                             ),
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            SimpleText(
-                                              text: 'انتشارات',
-                                            ),
+                                            Text('انتشارات',
+                                                style: myTheme
+                                                    .textTheme.subtitle1),
                                           ],
                                         ),
                                       ),
@@ -398,17 +370,15 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SimpleText(
-                                              text: 'هادی فرهادی',
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                            Text('هادی فرهادی',
+                                                style: myTheme
+                                                    .textTheme.headline2),
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            SimpleText(
-                                              text: 'مترجم',
-                                            ),
+                                            Text('مترجم',
+                                                style: myTheme
+                                                    .textTheme.subtitle1),
                                           ],
                                         ),
                                       ),
@@ -420,16 +390,16 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            SimpleText(
-                                              text: 'ایون شرت',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
+                                            Text(
+                                              'ایون شرت',style: myTheme
+                                                .textTheme.headline2
                                             ),
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            SimpleText(
-                                              text: 'نویسنده',
+                                            Text(
+                                              'نویسنده',style: myTheme
+                                                .textTheme.subtitle1
                                             ),
                                           ],
                                         ),
@@ -464,10 +434,9 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       Row(
                         children: [
                           // SizedBox(width: 20,),
-                          SimpleText(
-                            text: 'توضیحات : ',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
+                          Text(
+                            'توضیحات : ',
+                            style: myTheme.textTheme.headline4,
                           ),
                         ],
                       ),
@@ -477,8 +446,9 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       Row(
                         children: [
                           Expanded(
-                              child: SimpleText(
-                            text: Contents.description + Contents.description,
+                              child: Text(
+                            Contents.description + Contents.description,
+                                style: myTheme.textTheme.bodyText1,
                           )),
                         ],
                       )

@@ -1,4 +1,3 @@
-import 'package:book/components/simpletext.dart';
 import 'package:book/mobile/bookDetail.dart';
 import 'package:book/modules/contents.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,18 +11,21 @@ class ArchiveBookCart extends StatelessWidget {
   final String photo;
   final int index;
 
-  ArchiveBookCart({this.rating, this.bookName, this.category, this.photo, this.index});
+  ArchiveBookCart(
+      {this.rating, this.bookName, this.category, this.photo, this.index});
 
   @override
   Widget build(BuildContext context) {
+    ThemeData myTheme = Theme.of(context);
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (c) => BookDetailPage(
                   imgPath: 'assets/images/$photo',
                   tag: "$photo$index",
-                  name:Contents.names[index],
-                  bookName:bookName,
+                  name: Contents.names[index],
+                  bookName: bookName,
                 )));
       },
       child: Container(
@@ -33,28 +35,28 @@ class ArchiveBookCart extends StatelessWidget {
             color: Colors.black12, borderRadius: BorderRadius.circular(5)),
         child: Stack(
           children: [
-
             Align(
               alignment: Alignment.centerLeft,
-              child: Icon(Icons.bookmark,color: Colors.black45,),
+              child: Icon(
+                Icons.bookmark,
+                color: Colors.black45,
+              ),
             ),
-
             Positioned(
               top: 40,
               right: 120,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SimpleText(
-                    text: bookName,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                  Text(
+                    bookName,
+                    style: myTheme.textTheme.headline2,
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  SimpleText(
-                    text: category,
+                  Text(
+                    category,style: myTheme.textTheme.subtitle1,
                   ),
                   SizedBox(
                     height: 10,

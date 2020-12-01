@@ -1,4 +1,3 @@
-import 'package:book/components/simpletext.dart';
 import 'package:book/mobile/bookDetail.dart';
 import 'package:book/modules/contents.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +15,7 @@ class TrendBookCart extends StatelessWidget {
       {this.rating, this.bookName, this.category, this.photo, this.index});
   @override
   Widget build(BuildContext context) {
+    ThemeData myTheme = Theme.of(context);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
@@ -39,16 +39,15 @@ class TrendBookCart extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SimpleText(
-                    text: bookName,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                  Text(
+                    bookName,
+                    style: myTheme.textTheme.headline3,
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  SimpleText(
-                    text: category,
+                  Text(
+                    category,style: myTheme.textTheme.subtitle1,
                   ),
                   SizedBox(
                     height: 10,

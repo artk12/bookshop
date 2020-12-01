@@ -1,21 +1,20 @@
 import 'package:book/components/bookcard.dart';
-import 'package:book/components/simpletext.dart';
 import 'package:book/modules/contents.dart';
 import 'package:book/providers/homeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class UserDetail extends StatelessWidget {
-
   final HomeProvider homeProvider;
   final PageController pageController;
-  UserDetail({this.homeProvider,this.pageController});
+  UserDetail({this.homeProvider, this.pageController});
 
   @override
   Widget build(BuildContext context) {
+    ThemeData myTheme = Theme.of(context);
 
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         // if(pageController.page == 1){
         //   pageController.animateToPage(2, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
         //   return false;
@@ -30,7 +29,7 @@ class UserDetail extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              top:0,
+              top: 0,
               left: 0,
               child: CustomPaint(
                 size: Size(MediaQuery.of(context).size.width, 80),
@@ -75,12 +74,13 @@ class UserDetail extends StatelessWidget {
                 backgroundColor: Colors.cyan,
                 child: CircleAvatar(
                   radius: 50,
-                  backgroundImage: AssetImage('assets/images/profile_tupac.jpg'),
+                  backgroundImage:
+                      AssetImage('assets/images/profile_tupac.jpg'),
                 ),
               ),
             ),
             Positioned(
-              top: 120 + 20  + 0.0,
+              top: 120 + 20 + 0.0,
               left: 0,
               child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -88,9 +88,9 @@ class UserDetail extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SimpleText(
-                      text: 'توپاک',
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      'توپاک',
+                      style: myTheme.textTheme.headline2,
                     ),
                   ],
                 ),
@@ -107,10 +107,12 @@ class UserDetail extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                        child: SimpleText(
-                          text:'هرچه می بینی باید حس شوخ طبعی خودتو حفظ کنی.تو باید بتونی با وجود تمام مزخرفات لبخند بزنی.',
-                          height: 1.5,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                        child: Text(
+                          'هرچه می بینی باید حس شوخ طبعی خودتو حفظ کنی.تو باید بتونی با وجود تمام مزخرفات لبخند بزنی.',
+                          style:
+                              myTheme.textTheme.bodyText1.copyWith(height: 1.5),
                         ),
                       ),
                     ),
@@ -127,11 +129,13 @@ class UserDetail extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SimpleText(
-                      text:'١٩',
+                    Text(
+                      '١٩',
+                      style: myTheme.textTheme.subtitle1,
                     ),
-                    SimpleText(
-                      text:' کتاب آپلود شده ',
+                    Text(
+                      ' کتاب آپلود شده ',
+                      style: myTheme.textTheme.subtitle1,
                     ),
                   ],
                 ),
@@ -153,15 +157,19 @@ class UserDetail extends StatelessWidget {
                       style: TextStyle(fontFamily: 'robotmedium'),
                     ),
                     FlatButton(
-                      onPressed: () async{
-                        pageController.animateToPage(3, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+                      onPressed: () async {
+                        pageController.animateToPage(3,
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.easeInOut);
                         homeProvider.updatePage(3);
                       },
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
-                      child: SimpleText(
-                        text:'نمایش بیشتر',
-                        color: Color.fromARGB(255, 0, 133, 181),
+                      child: Text(
+                        'نمایش بیشتر',
+                        style: myTheme.textTheme.subtitle1.copyWith(
+                          color: Color.fromARGB(255, 0, 133, 181),
+                        ),
                       ),
                     ),
                   ],

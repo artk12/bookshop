@@ -1,12 +1,14 @@
 import 'package:book/components/bookcard.dart';
-import 'package:book/components/simpletext.dart';
 import 'package:book/components/trendBookCart.dart';
 import 'package:book/modules/contents.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ThemeData myTheme = Theme.of(context);
+
     return CustomScrollView(
       physics: BouncingScrollPhysics(),
       slivers: [
@@ -16,10 +18,8 @@ class HomePage extends StatelessWidget {
             children: [
               Padding(
                   padding: const EdgeInsets.all(9.0),
-                  child: SimpleText(
-                    text: 'پرفروشترین ها :',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                  child: Text(
+                    'پرفروشترین ها :',style: myTheme.textTheme.headline2,
                   )),
               SizedBox(
                 height: 10,
@@ -50,10 +50,8 @@ class HomePage extends StatelessWidget {
         SliverToBoxAdapter(
           child: Padding(
               padding: const EdgeInsets.all(9.0),
-              child: SimpleText(
-                text: 'پربازدید ها :',
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
+              child: Text(
+                'پربازدید ها :',style: myTheme.textTheme.headline2,
               )),
         ),
         SliverList(

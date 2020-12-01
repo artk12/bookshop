@@ -1,6 +1,7 @@
 import 'package:book/mobile/settings.dart';
 import 'package:book/providers/dragController.dart';
 import 'package:book/providers/homeProvider.dart';
+import 'package:book/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,13 +44,7 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        scaffoldBackgroundColor: homeProvider.darkTheme
-            ? Colors.black
-            : Color.fromARGB(255, 247, 247, 247),
-      ),
+      theme: light,
       home: ChangeNotifierProvider.value(
         value: homeProvider,
         child: ChangeNotifierProvider.value(

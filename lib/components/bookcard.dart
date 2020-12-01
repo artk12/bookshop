@@ -1,5 +1,4 @@
-import 'package:book/colors/colors.dart';
-import 'package:book/components/simpletext.dart';
+
 import 'package:book/mobile/bookDetail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,17 +51,14 @@ class BookCart extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          SimpleText(
-            text: name,
-          ),
+          Text(name,style: Theme.of(context).textTheme.subtitle1,),
+          // SimpleText(
+          //   text: name,
+          // ),
           SizedBox(
             height: 8,
           ),
-          SimpleText(
-            text: book,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
+          Text(book,style: Theme.of(context).textTheme.headline3,),
           SizedBox(
             height: 6,
           ),

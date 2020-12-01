@@ -1,4 +1,3 @@
-import 'package:book/components/simpletext.dart';
 import 'package:book/components/trendBookCart.dart';
 import 'package:book/modules/contents.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +6,8 @@ import 'package:flutter/material.dart';
 class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ThemeData myTheme = Theme.of(context);
+
     return Container(
       // margin: EdgeInsets.only(top: 10),
       child: CustomScrollView(
@@ -18,7 +19,7 @@ class SearchPage extends StatelessWidget {
               width: double.maxFinite,
               child: Padding(
                 padding: const EdgeInsets.only(right: 8),
-                child: SimpleText(text:"نویسنده"),
+                child: Text("نویسنده",style: myTheme.textTheme.subtitle1,),
               ),
               decoration: BoxDecoration(
                 color: Colors.black12
@@ -46,8 +47,9 @@ class SearchPage extends StatelessWidget {
                         SizedBox(
                           width: 25,
                         ),
-                        SimpleText(
-                          text: 'محمد محمدی',
+                        Text(
+                          'محمد محمدی',
+                          style: myTheme.textTheme.subtitle1,
                         ),
                       ],
                     ),
@@ -62,7 +64,10 @@ class SearchPage extends StatelessWidget {
               width: double.maxFinite,
               child: Padding(
                 padding: const EdgeInsets.only(right: 8),
-                child: SimpleText(text:"کتاب ها"),
+                child: Text(
+                  'کتابها',
+                  style: myTheme.textTheme.subtitle1,
+                ),
               ),
               decoration: BoxDecoration(
                   color: Colors.black12

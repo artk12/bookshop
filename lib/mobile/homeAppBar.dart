@@ -1,5 +1,4 @@
 import 'package:book/components/searchfieldwithoutlable.dart';
-import 'package:book/components/simpletext.dart';
 import 'package:book/providers/dragController.dart';
 import 'package:book/providers/homeProvider.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,6 +32,7 @@ class HomeAppBar extends PreferredSize {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData myTheme = Theme.of(context);
     return AppBar(
       automaticallyImplyLeading: false,
       shadowColor: homeProvider.page == 2 ? Colors.transparent : null,
@@ -59,24 +59,18 @@ class HomeAppBar extends PreferredSize {
                       SizedBox(
                         width: 5,
                       ),
-                      SimpleText(
-                        text: 'پروفایل',
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 71, 71, 71),
+                      Text(
+                        'پروفایل',
+                        style: myTheme.textTheme.headline2,
                       )
                     ],
                   ),
                 )
-              : SimpleText(
-                  text: homeProvider.page == 0
+              : Text(
+                  homeProvider.page == 0
                       ? 'خانه'
                       : homeProvider.page == 1 ? 'علاقه مندی ها' : '',
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: homeProvider.page == 2
-                      ? Colors.white
-                      : Color.fromARGB(255, 71, 71, 71),
+                  style:myTheme.textTheme.headline1
                 ),
       actions: [
         !searchMode
@@ -109,7 +103,7 @@ class HomeAppBar extends PreferredSize {
                         onPressed: searchIconPress,
                         icon: Icon(
                           Icons.search,
-                          color: Color.fromARGB(255, 71, 71, 71),
+                          color: Theme.of(context).primaryColor,
                         ),
                       )
                     : RotationTransition(
@@ -119,7 +113,7 @@ class HomeAppBar extends PreferredSize {
                           onPressed: backIconInSearchMode,
                           icon: Icon(
                             Icons.arrow_forward,
-                            color: Color.fromARGB(255, 71, 71, 71),
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       )
