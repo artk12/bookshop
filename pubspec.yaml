@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^0.1.3
   flutter_rating_bar:
   provider:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:

@@ -25,17 +25,17 @@ class UserDetail extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: Colors.white,
+        color: myTheme.scaffoldBackgroundColor,
         child: Stack(
           children: [
-            Positioned(
-              top: 0,
-              left: 0,
-              child: CustomPaint(
-                size: Size(MediaQuery.of(context).size.width, 80),
-                painter: MyCustomPainter(),
-              ),
-            ),
+            // Positioned(
+            //   top: 0,
+            //   left: 0,
+            //   child: CustomPaint(
+            //     size: Size(MediaQuery.of(context).size.width, 80),
+            //     painter: MyCustomPainter(),
+            //   ),
+            // ),
             // Positioned(
             //   top: 20,
             //   left: 20,
@@ -67,11 +67,11 @@ class UserDetail extends StatelessWidget {
             //   ),
             // ),
             Positioned(
-              top: 0,
-              left: MediaQuery.of(context).size.width / 2 - 60,
+              top: 10,
+              left: MediaQuery.of(context).size.width / 2 - 55,
               child: CircleAvatar(
-                radius: 60,
-                backgroundColor: Colors.cyan,
+                radius: 55,
+                backgroundColor: Color.fromARGB(255, 40, 40, 40),
                 child: CircleAvatar(
                   radius: 50,
                   backgroundImage:
@@ -154,7 +154,7 @@ class UserDetail extends StatelessWidget {
                   children: [
                     Text(
                       'کتابهای من',
-                      style: TextStyle(fontFamily: 'robotmedium'),
+                      style: myTheme.textTheme.subtitle1,
                     ),
                     FlatButton(
                       onPressed: () async {

@@ -1,33 +1,52 @@
 import 'package:book/mobile/settings.dart';
-import 'package:book/providers/dragController.dart';
 import 'package:book/providers/homeProvider.dart';
+import 'package:book/requests/sp.dart';
 import 'package:book/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(Theme());
+  runApp(MyApp());
 }
 
-class Theme extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: HomeProvider(),
-      child: MyApp(),
+    return FutureProvider.value(
+      value: Sp.getTheme(),
+      child: Theme(),
     );
   }
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
+class Theme extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    bool theme = Provider.of<bool>(context) ?? false;
+    HomeProvider homeProvider = HomeProvider();
+    homeProvider.darkTheme = theme;
+    if(homeProvider.darkTheme){
+      homeProvider.theme = dark;
+    }else{
+      homeProvider.theme = light;
+    }
+
+    return ChangeNotifierProvider.value(
+      value: homeProvider,
+      child: Landing(),
+    );
+  }
+}
+
+class Landing extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     HomeProvider homeProvider = Provider.of<HomeProvider>(context);
 
     return MaterialApp(
       title: 'Flutter Demo',
-      darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       builder: (BuildContext context, Widget child) {
         return new Directionality(
@@ -44,13 +63,10 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
-      theme: light,
+      theme: homeProvider.theme,
       home: ChangeNotifierProvider.value(
         value: homeProvider,
-        child: ChangeNotifierProvider.value(
-          value: DragController(),
-          child: Settings(),
-        ),
+        child: Settings(),
       ),
     );
   }

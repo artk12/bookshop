@@ -1,9 +1,7 @@
-
 import 'package:book/mobile/bottomSheet.dart';
 import 'package:book/mobile/homeAppBar.dart';
 import 'package:book/mobile/profile.dart';
 import 'package:book/mobile/searchpage.dart';
-import 'package:book/providers/dragController.dart';
 import 'package:book/providers/homeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +11,6 @@ import 'archive.dart';
 import 'homePage.dart';
 
 class MobileHome extends StatefulWidget {
-  final DragController drag;
-  MobileHome({this.drag});
   createState() => _MobileHomeState();
 }
 
@@ -64,22 +60,20 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     HomeProvider homeProvider = Provider.of<HomeProvider>(context);
 
-    Function searchIconPress = (){
+    Function searchIconPress = () {
       setState(() {
-        _scaleMainPage =
-            Tween<double>(begin: 1.0, end: 0.8).animate(
-              CurvedAnimation(
-                parent: _animationController,
-                curve: Curves.ease,
-              ),
-            );
-        _fadeInFadeOutSearchPage =
-            Tween<double>(begin: 0.8, end: 1.0).animate(
-              CurvedAnimation(
-                parent: _animationController,
-                curve: Curves.ease,
-              ),
-            );
+        _scaleMainPage = Tween<double>(begin: 1.0, end: 0.8).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.ease,
+          ),
+        );
+        _fadeInFadeOutSearchPage = Tween<double>(begin: 0.8, end: 1.0).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.ease,
+          ),
+        );
         searchMode = true;
       });
       _animationController.reset();
@@ -90,21 +84,19 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
       focusNode.unfocus();
       await Future.delayed(Duration(milliseconds: 200));
       setState(() {
-        _fadeInFadeOutMainPage =
-            Tween<double>(begin: 0.9, end: 1.0).animate(
-              CurvedAnimation(
-                parent: _animationController,
-                curve: Curves.ease,
-              ),
-            );
+        _fadeInFadeOutMainPage = Tween<double>(begin: 0.9, end: 1.0).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.ease,
+          ),
+        );
         searchMode = false;
-        _scaleMainPage =
-            Tween<double>(begin: 1.2, end: 1.0).animate(
-              CurvedAnimation(
-                parent: _animationController,
-                curve: Curves.ease,
-              ),
-            );
+        _scaleMainPage = Tween<double>(begin: 1.2, end: 1.0).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.ease,
+          ),
+        );
       });
       _animationController.reset();
       _animationController.forward();
@@ -112,7 +104,6 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
 
     return Scaffold(
       appBar: HomeAppBar(
-        drag: widget.drag,
         homeProvider: homeProvider,
         pageController: pageController,
         focusNode: focusNode,
@@ -159,45 +150,47 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                 },
                 child: Stack(
                   children: [
-                      Positioned(
-                        left: 0,
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        child: PageView(
-                          controller: pageController,
-                          physics: NeverScrollableScrollPhysics(),
-                          children: [
-                            ScaleTransition(
-                              scale: _scaleMainPage,
-                              child: FadeTransition(
-                                  opacity: _fadeInFadeOutMainPage,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        bottom: bottomSheetPosition+135),
-                                    child: HomePage(),
-                                  )),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsets.only(bottom: bottomSheetPosition+135),
-                              child: Archive(),
-                            ),
-                            Profile(
-                              pageController: pageController,
-                              homeProvider: homeProvider,
-                            ),
-                            AllBookPage(
-                              pageController: pageController,
-                            ),
-                          ],
-                        ),
-                      ),
-                    AnimatedPositioned(
-                      duration: Duration(milliseconds: 10),
-                      bottom: bottomSheetPosition,
+                    Positioned(
                       left: 0,
-                      child: MyBottomSheet(pageController: pageController,homeProvider: homeProvider,)
-                    )
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: PageView(
+                        controller: pageController,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: [
+                          ScaleTransition(
+                            scale: _scaleMainPage,
+                            child: FadeTransition(
+                                opacity: _fadeInFadeOutMainPage,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: bottomSheetPosition + 135),
+                                  child: HomePage(),
+                                )),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                bottom: bottomSheetPosition + 135),
+                            child: Archive(),
+                          ),
+                          Profile(
+                            pageController: pageController,
+                            homeProvider: homeProvider,
+                          ),
+                          AllBookPage(
+                            pageController: pageController,
+                          ),
+                        ],
+                      ),
+                    ),
+                    AnimatedPositioned(
+                        duration: Duration(milliseconds: 10),
+                        bottom: bottomSheetPosition,
+                        left: 0,
+                        child: MyBottomSheet(
+                          pageController: pageController,
+                          homeProvider: homeProvider,
+                        ))
                   ],
                 ),
               ),

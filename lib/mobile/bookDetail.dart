@@ -1,6 +1,9 @@
 import 'package:book/modules/contents.dart';
+import 'package:book/providers/homeProvider.dart';
+import 'package:book/theme/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BookDetailPage extends StatefulWidget {
   final String tag;
@@ -33,6 +36,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
   @override
   Widget build(BuildContext context) {
     ThemeData myTheme = Theme.of(context);
+    HomeProvider homeProvider = context.watch<HomeProvider>();
     height = MediaQuery.of(context).size.height + updateDrag;
     rightPic = ((MediaQuery.of(context).size.width / 2) - (180 / 2));
     topPic = (MediaQuery.of(context).size.height -
@@ -41,18 +45,11 @@ class _BookDetailPageState extends State<BookDetailPage> {
     // }
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 71, 71, 71),
+      backgroundColor: homeProvider.darkTheme? DarkColor.background:LightColor.backgroundBookDetail,
       body: SafeArea(
         child: GestureDetector(
           onHorizontalDragUpdate: (_) {},
           onVerticalDragUpdate: (DragUpdateDetails drag) {
-            // print(drag.delta.dx);
-            // print(
-            // "h = ${MediaQuery.of(context).size.height - 125} c = ${height / 1.4} m = ${topPic - updateDrag}");
-            // print();
-            // if(( - 5 ) >= height){
-            //   print('OK');
-            // }
 
             if (drag.delta.dy < 0) {
               setState(() {
@@ -124,7 +121,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                 child: Container(
                   height: height / 1.4,
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 247, 247, 247),
+                      color: myTheme.scaffoldBackgroundColor,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
                         topRight: Radius.circular(40),
@@ -157,8 +154,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
-                                color: Colors.black38,
-                                blurRadius: 15,
+                                color: myTheme.primaryColor,
+                                blurRadius: 10,
                                 offset: Offset(0, 10))
                           ],
                         ),

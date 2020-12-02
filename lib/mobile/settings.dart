@@ -1,4 +1,3 @@
-import 'package:book/providers/dragController.dart';
 import 'package:book/providers/homeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +9,12 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeProvider homeProvider = Provider.of<HomeProvider>(context);
-    DragController drag = Provider.of<DragController>(context);
+    // DragController drag = Provider.of<DragController>(context);
     ThemeData myTheme = Theme.of(context);
 
 
-    if (drag.maxDrag == null) {
-      drag.maxDrag = MediaQuery.of(context).size.width * (2 / 3);
+    if (homeProvider.maxDrag == null) {
+      homeProvider.maxDrag = MediaQuery.of(context).size.width * (2 / 3);
     }
 
     return Scaffold(
@@ -25,32 +24,32 @@ class Settings extends StatelessWidget {
           // print(dragUpdateDetail.globalPosition.dx);
 
           if (homeProvider.page == 2) {
-            if (drag.lastDx < dragUpdateDetail.globalPosition.dx) {
+            if (homeProvider.lastDx < dragUpdateDetail.globalPosition.dx) {
               //open
-              if (drag.left + 1 >= drag.maxDrag) {
+              if (homeProvider.left + 1 >= homeProvider.maxDrag) {
                 // homeProvider.openCloseDrawerManual(true);
               }
-              if (drag.lastDx > drag.left && drag.left < drag.maxDrag) {
-                drag.left += 2;
-                drag.updateLastPos(drag.lastPos += 2);
+              if (homeProvider.lastDx > homeProvider.left && homeProvider.left < homeProvider.maxDrag) {
+                homeProvider.left += 2;
+                homeProvider.updateLastPos(homeProvider.lastPos += 2);
               }
             } else {
-              if (drag.left > 0) {
-                if (drag.left - 1 <= 0) {
+              if (homeProvider.left > 0) {
+                if (homeProvider.left - 1 <= 0) {
                   // homeProvider.openCloseDrawerManual(false);
                 }
-                drag.left -= 2;
-                drag.updateLastPos(drag.lastPos -= 2);
+                homeProvider.left -= 2;
+                homeProvider.updateLastPos(homeProvider.lastPos -= 2);
               }
             }
-            drag.updateLastDX(dragUpdateDetail.globalPosition.dx);
+            homeProvider.updateLastDX(dragUpdateDetail.globalPosition.dx);
           }
         },
         onHorizontalDragEnd: (DragEndDetails dragUpdateDetail)async{
-          if(drag.left != 0 && drag.left < drag.maxDrag / 2){
-            drag.updateLastPos(0.0);
-          }else if (drag.left >= drag.maxDrag / 2 ){
-            drag.updateLastPos(drag.maxDrag);
+          if(homeProvider.left != 0 && homeProvider.left < homeProvider.maxDrag / 2){
+            homeProvider.updateLastPos(0.0);
+          }else if (homeProvider.left >= homeProvider.maxDrag / 2 ){
+            homeProvider.updateLastPos(homeProvider.maxDrag);
           }
         },
         child: SafeArea(
@@ -61,11 +60,11 @@ class Settings extends StatelessWidget {
               children: [
                 AnimatedPositioned(
                   duration: Duration(milliseconds: 100),
-                  left: drag.left - drag.maxDrag,
+                  left: homeProvider.left - homeProvider.maxDrag,
                   height: MediaQuery.of(context).size.height,
                   child: Container(
-                    color: Color.fromARGB(255, 235, 235, 235),
-                    width: drag.maxDrag,
+                    color: myTheme.backgroundColor,
+                    width: homeProvider.maxDrag,
                     child: Column(
                       children: [
                         Container(
@@ -167,12 +166,12 @@ class Settings extends StatelessWidget {
                 AnimatedPositioned(
                   duration: Duration(milliseconds: 100),
                   top: 0,
-                  left: drag.left,
+                  left: homeProvider.left,
                   right: 0,
                   bottom: 0,
                   child: ChangeNotifierProvider.value(
                     value: homeProvider,
-                    child: MobileHome(drag: drag,),
+                    child: MobileHome(),
                   ),
                 ),
               ],

@@ -1,5 +1,4 @@
 import 'package:book/components/searchfieldwithoutlable.dart';
-import 'package:book/providers/dragController.dart';
 import 'package:book/providers/homeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,6 @@ class HomeAppBar extends PreferredSize {
   final PageController pageController;
   final Animation<double> searchFieldAnimation;
   final FocusNode focusNode;
-  final DragController drag;
   final Function searchIconPress;
   final Function backIconInSearchMode;
   final AnimationController animationController;
@@ -20,7 +18,6 @@ class HomeAppBar extends PreferredSize {
       this.focusNode,
       this.homeProvider,
       this.pageController,
-      this.drag,
       this.backIconInSearchMode,
       this.searchFieldAnimation,
       this.searchIconPress,
@@ -35,10 +32,6 @@ class HomeAppBar extends PreferredSize {
     ThemeData myTheme = Theme.of(context);
     return AppBar(
       automaticallyImplyLeading: false,
-      shadowColor: homeProvider.page == 2 ? Colors.transparent : null,
-      backgroundColor: homeProvider.page == 2
-          ? Colors.cyan
-          : Color.fromARGB(255, 247, 247, 247),
       title: searchMode
           ? Container()
           : homeProvider.page == 3
@@ -69,7 +62,7 @@ class HomeAppBar extends PreferredSize {
               : Text(
                   homeProvider.page == 0
                       ? 'خانه'
-                      : homeProvider.page == 1 ? 'علاقه مندی ها' : '',
+                      : homeProvider.page == 1 ? 'علاقه مندی ها' : homeProvider.left != 0 ? '':'پروفایل',
                   style:myTheme.textTheme.headline1
                 ),
       actions: [
@@ -91,11 +84,11 @@ class HomeAppBar extends PreferredSize {
             : homeProvider.page == 2
                 ? IconButton(
                     onPressed: () {
-                      drag.updateLeft(drag.left != 0.0 ? 0.0 : drag.maxDrag);
+                      homeProvider.updateLeft(homeProvider.left != 0.0 ? 0.0 : homeProvider.maxDrag);
                     },
                     icon: Icon(
                       Icons.settings,
-                      color: Colors.white,
+                      color: Theme.of(context).primaryColor,
                     ),
                   )
                 : !searchMode

@@ -10,6 +10,8 @@ class MyBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData myTheme = Theme.of(context);
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8),
       width: MediaQuery.of(context).size.width,
@@ -85,7 +87,7 @@ class MyBottomSheet extends StatelessWidget {
       ),
       height: 50,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: myTheme.primaryColorDark,
         border: Border.all(color: Colors.black38, width: 1),
         boxShadow: [
           BoxShadow(color: Colors.black45, blurRadius: 5)
