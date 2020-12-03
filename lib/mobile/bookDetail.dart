@@ -1,3 +1,4 @@
+import 'package:book/mobile/userProfile.dart';
 import 'package:book/modules/contents.dart';
 import 'package:book/providers/homeProvider.dart';
 import 'package:book/theme/colors.dart';
@@ -45,12 +46,13 @@ class _BookDetailPageState extends State<BookDetailPage> {
     // }
 
     return Scaffold(
-      backgroundColor: homeProvider.darkTheme? DarkColor.background:LightColor.backgroundBookDetail,
+      backgroundColor: homeProvider.darkTheme
+          ? DarkColor.background
+          : LightColor.backgroundBookDetail,
       body: SafeArea(
         child: GestureDetector(
           onHorizontalDragUpdate: (_) {},
           onVerticalDragUpdate: (DragUpdateDetails drag) {
-
             if (drag.delta.dy < 0) {
               setState(() {
                 if (MediaQuery.of(context).size.height - 118 > height / 1.4) {
@@ -155,20 +157,27 @@ class _BookDetailPageState extends State<BookDetailPage> {
                           boxShadow: [
                             BoxShadow(
                                 color: myTheme.primaryColor,
-                                blurRadius: 10,
-                                offset: Offset(0, 10))
+                                blurRadius: 30,
+                                offset: Offset(0, 0))
                           ],
                         ),
                       ),
                       SizedBox(
-                        height: 30,
-                      ),
-                      Text(
-                        widget.name,
-                        style: myTheme.textTheme.subtitle1,
-                      ),
-                      SizedBox(
                         height: 15,
+                      ),
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => UserProfile(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          widget.name,
+                          style: myTheme.textTheme.subtitle1.copyWith(
+                              color: Colors.blue, fontWeight: FontWeight.bold),
+                        ),
                       ),
                       Text(
                         widget.bookName,
@@ -254,7 +263,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                           children: [
                                             Text('انگلیسی',
                                                 style: myTheme
-                                                    .textTheme.headline2),
+                                                    .textTheme.headline1),
                                             SizedBox(
                                               height: 10,
                                             ),
@@ -276,7 +285,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                           children: [
                                             Text('سخت',
                                                 style: myTheme
-                                                    .textTheme.headline2),
+                                                    .textTheme.headline1),
                                             SizedBox(
                                               height: 10,
                                             ),
@@ -296,7 +305,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                           children: [
                                             Text('455',
                                                 style: myTheme
-                                                    .textTheme.headline2),
+                                                    .textTheme.headline1),
                                             SizedBox(
                                               height: 10,
                                             ),
@@ -316,7 +325,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                           children: [
                                             Text('4.5',
                                                 style: myTheme
-                                                    .textTheme.headline2),
+                                                    .textTheme.headline1),
                                             SizedBox(
                                               height: 10,
                                             ),
@@ -348,7 +357,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                             Text(
                                               'نشر نی',
                                               style:
-                                                  myTheme.textTheme.headline2,
+                                                  myTheme.textTheme.headline1,
                                             ),
                                             SizedBox(
                                               height: 10,
@@ -369,7 +378,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                           children: [
                                             Text('هادی فرهادی',
                                                 style: myTheme
-                                                    .textTheme.headline2),
+                                                    .textTheme.headline1),
                                             SizedBox(
                                               height: 10,
                                             ),
@@ -387,17 +396,15 @@ class _BookDetailPageState extends State<BookDetailPage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              'ایون شرت',style: myTheme
-                                                .textTheme.headline2
-                                            ),
+                                            Text('ایون شرت',
+                                                style: myTheme
+                                                    .textTheme.headline1),
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            Text(
-                                              'نویسنده',style: myTheme
-                                                .textTheme.subtitle1
-                                            ),
+                                            Text('نویسنده',
+                                                style: myTheme
+                                                    .textTheme.subtitle1),
                                           ],
                                         ),
                                       ),
@@ -445,7 +452,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                           Expanded(
                               child: Text(
                             Contents.description + Contents.description,
-                                style: myTheme.textTheme.bodyText1,
+                            style: myTheme.textTheme.bodyText1,
                           )),
                         ],
                       )

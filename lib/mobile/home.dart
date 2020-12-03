@@ -1,7 +1,7 @@
 import 'package:book/mobile/bottomSheet.dart';
 import 'package:book/mobile/homeAppBar.dart';
-import 'package:book/mobile/profile.dart';
 import 'package:book/mobile/searchpage.dart';
+import 'package:book/mobile/myProfile.dart';
 import 'package:book/providers/homeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,6 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
   Animation<double> _scaleSearch;
   Animation<double> _searchFieldAnimation;
   PageController pageController = new PageController();
-  // int page = 0;
 
   @override
   void initState() {
@@ -173,7 +172,7 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                                 bottom: bottomSheetPosition + 135),
                             child: Archive(),
                           ),
-                          Profile(
+                          MyProfile(
                             pageController: pageController,
                             homeProvider: homeProvider,
                           ),
@@ -184,13 +183,16 @@ class _MobileHomeState extends State<MobileHome> with TickerProviderStateMixin {
                       ),
                     ),
                     AnimatedPositioned(
-                        duration: Duration(milliseconds: 10),
-                        bottom: bottomSheetPosition,
-                        left: 0,
-                        child: MyBottomSheet(
-                          pageController: pageController,
-                          homeProvider: homeProvider,
-                        ))
+                      duration: Duration(milliseconds: 10),
+                      bottom: homeProvider.page == 3
+                          ? -50
+                          : homeProvider.page == 2 ? 0 : bottomSheetPosition,
+                      left: 0,
+                      child: MyBottomSheet(
+                        pageController: pageController,
+                        homeProvider: homeProvider,
+                      ),
+                    ),
                   ],
                 ),
               ),

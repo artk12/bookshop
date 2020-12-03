@@ -48,9 +48,9 @@ flutter:
   uses-material-design: true
 
   fonts:
-    - family: iranian_sans
+    - family: markazi
       fonts:
-        - asset: fonts/iranian_sans.ttf
+        - asset: fonts/regular.ttf
   assets:
     - assets/images/
   # To add assets to your application, add an assets section, like this:

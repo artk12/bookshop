@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 final ThemeData light = ThemeData(
   scaffoldBackgroundColor: LightColor.scaffoldBackground,
-  fontFamily: 'iranian_sans',
+  fontFamily: 'markazi',
   backgroundColor: LightColor.background,
   accentColor: LightColor.accent,
   primaryColor: LightColor.appbarTitle,
@@ -14,6 +14,7 @@ final ThemeData light = ThemeData(
   ),
   // iconTheme: IconThemeData(color: LightColor.appbarTitle,size: 18),
   brightness: Brightness.light,
+  dividerColor: LightColor.dividerColor,
   // accentIconTheme: IconThemeData(color: LightColor.appbarTitle,size: 18),
   buttonColor: LightColor.accent,
   textTheme: TextTheme(
@@ -22,11 +23,11 @@ final ThemeData light = ThemeData(
           fontWeight: FontWeight.bold,
           color: LightColor.appbarTitle),
       headline2: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black),
+          fontWeight: FontWeight.bold, fontSize: 17, color: Colors.black),
       headline3: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),
+          fontWeight: FontWeight.bold, fontSize: 19, color: Colors.black),
       headline4: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 14, color: Colors.black),
+          fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black),
       subtitle1: TextStyle(
         fontWeight: FontWeight.normal,
         color: Colors.black,
@@ -36,16 +37,17 @@ final ThemeData light = ThemeData(
         fontWeight: FontWeight.normal,
         color: Colors.black,
       ),
-      bodyText1: TextStyle(
+      bodyText1: TextStyle(fontSize: 18,
           fontWeight: FontWeight.normal, color: Colors.black, height: 1.2)),
 );
 
 final ThemeData dark = ThemeData(
   scaffoldBackgroundColor: DarkColor.scaffoldBackground,
-  fontFamily: 'iranian_sans',
+  fontFamily: 'markazi',
   backgroundColor: DarkColor.background,
   accentColor: LightColor.accent,
   primaryColor: DarkColor.appbarTitle,
+  disabledColor: DarkColor.dividerColor,
   primaryColorDark: DarkColor.appbarBackground,
   appBarTheme: AppBarTheme(
       color: DarkColor.appbarBackground
@@ -60,11 +62,11 @@ final ThemeData dark = ThemeData(
           fontWeight: FontWeight.bold,
           color: DarkColor.appbarTitle),
       headline2: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white70),
+          fontWeight: FontWeight.bold, fontSize: 17, color: Colors.white70),
       headline3: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white70),
+          fontWeight: FontWeight.bold, fontSize: 19, color: Colors.white70),
       headline4: TextStyle(
-          fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white70),
+          fontWeight: FontWeight.bold, fontSize: 15, color: Colors.white70),
       subtitle1: TextStyle(
         fontWeight: FontWeight.normal,
         color: Colors.white70,
@@ -74,6 +76,6 @@ final ThemeData dark = ThemeData(
         fontWeight: FontWeight.normal,
         color: Colors.white70,
       ),
-      bodyText1: TextStyle(
-          fontWeight: FontWeight.normal, color: Colors.white70, height: 1.2)),
+      bodyText1: TextStyle(fontSize: 18,
+          fontWeight: FontWeight.normal, color: Colors.white70, height: 1.5)),
 );

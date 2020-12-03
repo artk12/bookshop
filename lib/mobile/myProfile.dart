@@ -4,10 +4,10 @@ import 'package:book/providers/homeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class UserDetail extends StatelessWidget {
+class MyProfile extends StatelessWidget {
   final HomeProvider homeProvider;
   final PageController pageController;
-  UserDetail({this.homeProvider, this.pageController});
+  MyProfile({this.homeProvider, this.pageController});
 
   @override
   Widget build(BuildContext context) {
@@ -22,54 +22,15 @@ class UserDetail extends StatelessWidget {
         //   return true;
         return true;
       },
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        color: myTheme.scaffoldBackgroundColor,
-        child: Stack(
-          children: [
-            // Positioned(
-            //   top: 0,
-            //   left: 0,
-            //   child: CustomPaint(
-            //     size: Size(MediaQuery.of(context).size.width, 80),
-            //     painter: MyCustomPainter(),
-            //   ),
-            // ),
-            // Positioned(
-            //   top: 20,
-            //   left: 20,
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //         color: Colors.white, borderRadius: BorderRadius.circular(10)),
-            //     child: IconButton(
-            //       onPressed: () {},
-            //       icon: Icon(
-            //         Icons.arrow_back,
-            //         color: Colors.cyan,
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // Positioned(
-            //   top: 20,
-            //   left: 20,
-            //   child: Container(
-            //     child: IconButton(
-            //       onPressed: () {
-            //         profileProvider.openCloseDrawer();
-            //       },
-            //       icon: Icon(
-            //         Icons.settings,
-            //         color: Colors.white,
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            Positioned(
-              top: 10,
-              left: MediaQuery.of(context).size.width / 2 - 55,
-              child: CircleAvatar(
+      child: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          color: myTheme.scaffoldBackgroundColor,
+          child: Column(
+            children: [
+              SizedBox(height: 10,),
+              CircleAvatar(
                 radius: 55,
                 backgroundColor: Color.fromARGB(255, 40, 40, 40),
                 child: CircleAvatar(
@@ -78,11 +39,7 @@ class UserDetail extends StatelessWidget {
                       AssetImage('assets/images/profile_tupac.jpg'),
                 ),
               ),
-            ),
-            Positioned(
-              top: 120 + 20 + 0.0,
-              left: 0,
-              child: Container(
+              Container(
                 width: MediaQuery.of(context).size.width,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -95,11 +52,7 @@ class UserDetail extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-            Positioned(
-              top: 120 + 50 + 0.0,
-              left: 0,
-              child: Container(
+              Container(
                 width: MediaQuery.of(context).size.width,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -119,11 +72,8 @@ class UserDetail extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-            Positioned(
-              top: 120 + 50 + 90 + 0.0,
-              left: 0,
-              child: Container(
+              SizedBox(height: 10,),
+              Container(
                 width: MediaQuery.of(context).size.width,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -140,11 +90,7 @@ class UserDetail extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-            Positioned(
-              top: 120 + 50 + 90 + 10 + 0.0,
-              left: 0,
-              child: Container(
+              Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(right: 20),
                 child: Row(
@@ -175,34 +121,31 @@ class UserDetail extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-            Positioned(
-              top: 120 + 20 + 70 + 10 + 90 + 0.0,
-              left: 0,
-              child: Container(
-                height: 250,
-                width: MediaQuery.of(context).size.width,
-                child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 9,
-                  shrinkWrap: false,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: EdgeInsets.all(10),
-                      child: BookCart(
-                        index: index,
-                        name: Contents.names[index],
-                        rating: Contents.rating[index],
-                        photo: Contents.covers[index],
-                        book: Contents.bookNames[index],
-                      ),
-                    );
-                  },
+              Expanded(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 9,
+                    shrinkWrap: false,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.all(10),
+                        child: BookCart(
+                          index: index,
+                          name: Contents.names[index],
+                          rating: Contents.rating[index],
+                          photo: Contents.covers[index],
+                          book: Contents.bookNames[index],
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

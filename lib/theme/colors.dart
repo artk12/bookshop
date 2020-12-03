@@ -9,6 +9,7 @@ class LightColor{
   static final Color appbarBackground = Color.fromARGB(255, 247, 247, 247);
   static final Color appbarTitle = Color.fromARGB(255, 71, 71, 71);
   static final Color trendingTitle = Colors.black;
+  static final Color dividerColor = Colors.black26;
 }
 
 class DarkColor{
@@ -18,4 +19,5 @@ class DarkColor{
   static final Color appbarBackground = Color.fromARGB(255,34, 40, 46);
   static final Color appbarTitle = Color.fromARGB(255, 244,244,244);
   static final Color trendingTitle = Colors.white70;
+  static final Color dividerColor = Colors.white24;
 }

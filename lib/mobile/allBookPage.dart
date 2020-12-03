@@ -38,7 +38,7 @@ class AllBookPage extends StatelessWidget {
     double x = MediaQuery.of(context).size.width / 90;
     int truncate = x.truncate();
     double numberAfterDot = x - x.truncate();
-    if (numberAfterDot < 0.5) {
+    if (numberAfterDot < 0.6) {
       truncate = truncate - 1;
     }
 
@@ -48,38 +48,14 @@ class AllBookPage extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 247, 247, 247),
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
         slivers: [
-          // SliverAppBar(
-          //   backgroundColor: Color.fromARGB(255, 247, 247, 247),
-          //   shadowColor: Colors.transparent,
-          //   title: Row(
-          //     crossAxisAlignment: CrossAxisAlignment.center,
-          //     mainAxisAlignment: MainAxisAlignment.start,
-          //     children: [
-          //       Container(
-          //         width: 30,
-          //         child: Icon(
-          //           Icons.arrow_back_ios,
-          //           color: Colors.black,
-          //           size: 16,
-          //         ),
-          //       ),
-          //       SimpleText(
-          //         text: 'پروفایل',
-          //         fontSize: 16,
-          //         fontWeight: FontWeight.bold,
-          //       ),
-          //     ],
-          //   ),
-          // ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 return Container(
-                  margin: EdgeInsets.symmetric(vertical: 7),
+                  margin: EdgeInsets.symmetric(vertical: 20),
                   child: Row(children: bookWidgets(truncate, index)),
                 );
               },
