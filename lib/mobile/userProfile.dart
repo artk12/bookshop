@@ -17,13 +17,17 @@ class UserProfile extends StatelessWidget {
           'سعید',
           style: myTheme.textTheme.headline1,
         ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: myTheme.primaryColor,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.arrow_forward,
+              color: myTheme.primaryColor,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
           ),
-          onPressed: () {},
-        ),
+        ],
       ),
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
@@ -63,13 +67,13 @@ class UserProfile extends StatelessWidget {
                       children: [
                         Text(
                           '٦٨',
-                          style:
-                              myTheme.textTheme.headline2.copyWith(fontSize: 35),
+                          style: myTheme.textTheme.headline2
+                              .copyWith(fontSize: 35),
                         ),
                         Text(
                           'کتاب',
-                          style:
-                              myTheme.textTheme.headline2.copyWith(fontSize: 15),
+                          style: myTheme.textTheme.headline2
+                              .copyWith(fontSize: 15),
                         ),
                       ],
                     ),
